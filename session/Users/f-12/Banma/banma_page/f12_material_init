@@ -1,0 +1,137 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd ~/Banma/banma_page
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +179 static/page/stockInit/StockInitApp.vue
+badd +5 static/page/stockInit/util/v-pager.vue
+badd +43 static/page/stockInit/main-entry.js
+badd +1 static/page/stockInit/util/ConstraintedInput.vue
+badd +20 page/stockInit/index.shtml
+badd +1 ~/Banma/banma_page
+badd +3 mock/stockInit/mock.js
+argglobal
+silent! argdel *
+argadd ~/Banma/banma_page
+edit static/page/stockInit/StockInitApp.vue
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd t
+set winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 141 + 141) / 283)
+exe '2resize ' . ((&lines * 32 + 35) / 70)
+exe 'vert 2resize ' . ((&columns * 141 + 141) / 283)
+exe '3resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 3resize ' . ((&columns * 141 + 141) / 283)
+argglobal
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+1
+normal! zo
+207
+normal! zo
+219
+normal! zo
+224
+normal! zo
+225
+normal! zo
+226
+normal! zo
+236
+normal! zo
+238
+normal! zo
+239
+normal! zo
+241
+normal! zo
+243
+normal! zo
+247
+normal! zo
+256
+normal! zo
+260
+normal! zo
+266
+normal! zo
+273
+normal! zo
+let s:l = 207 - ((51 * winheight(0) + 33) / 66)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+207
+normal! 018|
+wincmd w
+argglobal
+edit static/page/stockInit/main-entry.js
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 5 - ((4 * winheight(0) + 16) / 32)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+5
+normal! 0
+wincmd w
+argglobal
+edit static/page/stockInit/util/ConstraintedInput.vue
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 32 - ((31 * winheight(0) + 16) / 33)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+32
+normal! 03|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 141 + 141) / 283)
+exe '2resize ' . ((&lines * 32 + 35) / 70)
+exe 'vert 2resize ' . ((&columns * 141 + 141) / 283)
+exe '3resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 3resize ' . ((&columns * 141 + 141) / 283)
+tabnext 1
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 shortmess=filnxtToOmrc
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

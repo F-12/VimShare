@@ -1,0 +1,83 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd ~/Banma/banma_page
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +23 page/abnormalReport/detail.shtml
+badd +392 static/page/abnormalReport/detail-entry.js
+badd +209 page/data/api-20-daymonitor.shtml
+badd +67 static/page/abnormalReport/list-entry.js
+badd +35 static/modules/datepicker/datepicker.js
+badd +97 static/page/abnormalReport/weatherList-entry.js
+badd +124 static/page/abnormalReport/check-entry.js
+badd +135 static/page/abnormalReport/weatherCheck-entry.js
+badd +136 static/page/abnormalReport/report-entry.js
+badd +150 static/page/abnormalReport/batchReject.vue
+badd +1 ~/Banma/banma_page
+badd +1 static/page/abnormalReport/reportReason.vue
+argglobal
+silent! argdel *
+argadd ~/Banma/banma_page
+edit page/abnormalReport/detail.shtml
+set splitbelow splitright
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd t
+set winheight=1 winwidth=1
+exe '1resize ' . ((&lines * 32 + 35) / 70)
+exe '2resize ' . ((&lines * 33 + 35) / 70)
+argglobal
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 85 - ((16 * winheight(0) + 16) / 32)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+85
+normal! 08|
+wincmd w
+argglobal
+edit static/page/abnormalReport/reportReason.vue
+setlocal fdm=syntax
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 63 - ((0 * winheight(0) + 16) / 33)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+63
+normal! 019|
+wincmd w
+exe '1resize ' . ((&lines * 32 + 35) / 70)
+exe '2resize ' . ((&lines * 33 + 35) / 70)
+tabnext 1
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 shortmess=filnxtToOmrc
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :
